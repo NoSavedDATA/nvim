@@ -3,6 +3,7 @@ vim.o.rnu = true
 vim.o.tabstop = 4
 vim.o.autoindent = true
 
+
 -- C-like indentation
 grp = vim.api.nvim_create_augroup("c_like_indent", { clear = true })
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
@@ -16,29 +17,9 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
 require("config.lazy")
 
 
--- Plugins (vim-plug equivalent)
--- vim.cmd [[
--- call plug#begin('~/.vim/plugged')
-
--- Plug 'junegunn/fzf'
--- Plug 'junegunn/fzf.vim'
--- Plug 'ayu-theme/ayu-vim'
--- Plug 'RRethy/vim-illuminate'
--- Plug 'jiangmiao/auto-pairs'
--- Plug 'tpope/vim-commentary'
--- Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
--- Plug 'NoSavedDATA/vim-nsk'
--- Plug 'NoSavedDATA/vim-nsk-dark'
-
--- call plug#end()
--- ]]
-
-
 -- Keymaps
 local map = vim.keymap.set
 map('n', '<C-/>', 'gc')
-map('n', '<C-p>', ':Telescope find_files<CR>')
--- map('n', '<C-o>', ':Files ../<CR>')
 map('n', '<Tab>', ':bnext<CR>')
 map('n', '<S-Tab>', ':bprevious<CR>')
 map('n', '<C-d>', '<C-d>zz')
@@ -46,6 +27,14 @@ map('n', '<C-u>', '<C-u>zz')
 map('n', '[u', '?^\\S<CR>')
 map('n', ']u', '/^\\S<CR>')
 map('n', '<C-s>', ':wqa<CR>')
+map('n', '<C-c>', '"+yy<CR>')
+map('v', '<C-c>', '"+y<CR>')
+map('v', '<C-c>', '"+y<CR>')
+map('n', '<Delete>', '"_dd')
+map('n', 'x', '"_x')
+
+
+
 
 -- Insert mode: auto braces
 vim.cmd [[inoremap { {<CR>}<up><end><CR>]]
@@ -59,10 +48,36 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         vim.cmd('vs')
+        vim.cmd('enew')
         vim.cmd('vertical resize 110')
         vim.cmd('wincmd l')
     end
 })
+
+
+vim.o.hlsearch = false
+
+-- Swap upper-case markers --
+local function swap_char(cmd)
+  local c = vim.fn.nr2char(vim.fn.getchar())
+  if c:match("%l") then
+    c = c:upper()
+  elseif c:match("%u") then
+    c = c:lower()
+  end
+  return cmd .. c
+end
+
+local function swap_mark() return swap_char('m') end
+local function swap_jump() return swap_char("'") end
+local function swap_backtick() return swap_char('`') end
+
+vim.keymap.set('n', 'm', swap_mark, { expr = true, noremap = true })
+vim.keymap.set('n', "'", swap_jump, { expr = true, noremap = true })
+vim.keymap.set('n', '`', swap_backtick, { expr = true, noremap = true })
+--
+
+
 
 
 -- Session options
@@ -108,3 +123,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
+
+local lsp = require("lspconfig")
+
+lsp.pyright.setup({})

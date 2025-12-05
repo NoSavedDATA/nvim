@@ -5,10 +5,24 @@ return {
 				  {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'}
 				},
 		config = function()
-				vim.keymap.set("n", "<space>u", require('telescope.builtin').find_files)
+				vim.keymap.set("n", "<C-p>", function()
+				  require('telescope.builtin').find_files({
+					find_command = {
+					  "rg",
+					  "--files",
+					  "--hidden",
+					  "--no-ignore",
+					},
+					file_ignore_patterns = {
+							"%.d",
+							"%.o"
+					}
+				  })
+				end)
+
 				vim.keymap.set("n", "<space>i", function()
 						require('telescope.builtin').find_files {
-								cwd = vim.fn.stdpath("config")
+								cwd = vim.fn.expand("~/.config/nvim")
 						}
 				end)
 
