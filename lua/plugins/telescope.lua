@@ -20,6 +20,21 @@ return {
 				  })
 				end)
 
+				vim.keymap.set("n", "<space>e", function()
+				  require('telescope.builtin').find_files({
+					find_command = {
+					  "rg",
+					  "--files",
+					  "--hidden",
+					  "--no-ignore",
+					},
+					file_ignore_patterns = {
+							"%.d",
+							"%.o"
+					}
+				  })
+				end)
+
 				vim.keymap.set("n", "<space>i", function()
 						require('telescope.builtin').find_files {
 								cwd = vim.fn.expand("~/.config/nvim")
