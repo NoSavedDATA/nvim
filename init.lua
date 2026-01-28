@@ -31,7 +31,6 @@ require("config.lazy")
 
 -- Keymaps
 local map = vim.keymap.set
-map('n', '<C-/>', 'gc')
 map('n', '<Tab>', ':bnext<CR>')
 map('n', '<S-Tab>', ':bprevious<CR>')
 map('n', '<C-d>', '<C-d>zz')
@@ -42,8 +41,7 @@ map('n', '<C-s>', ':wqa<CR>')
 map('n', '<C-c>', '"+yy<CR>')
 map('v', '<C-c>', '"+y<CR>')
 map('v', '<C-c>', '"+y<CR>')
-map('v', '<C-_>', 'gc', { remap = true })
-map('n', '<C-_>', 'vgc', { remap = true })
+map("n", "<C-;>", "gcc", { remap = true })
 map('n', '<Delete>', '"_dd')
 map('n', 'x', '"_x')
 
