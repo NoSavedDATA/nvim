@@ -6,17 +6,14 @@ return {
 				},
 		config = function()
 				vim.keymap.set("n", "<C-p>", function()
-				  require('telescope.builtin').find_files({
+				  require("telescope.builtin").find_files({
 					find_command = {
-					  "rg",
-					  "--files",
+					  "fd",
+					  "--type", "f",
 					  "--hidden",
-					  "--no-ignore",
+					  "--follow",
+					  "--ignore-file", ".vimignore",
 					},
-					file_ignore_patterns = {
-							"%.d",
-							"%.o"
-					}
 				  })
 				end)
 
