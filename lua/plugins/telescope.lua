@@ -10,6 +10,7 @@ return {
 					find_command = {
 					  "fd",
 					  "--type", "f",
+					  "--no-ignore",
 					  "--hidden",
 					  "--follow",
 					  "--ignore-file", ".vimignore",

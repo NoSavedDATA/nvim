@@ -14,6 +14,11 @@ return {
 		harpoon:list():clear()
     end)
 
+	vim.keymap.set("n", "<space>d", function()
+		local list = harpoon:list()
+		list:remove()
+    end)
+
     vim.keymap.set("n", "<space>h", function()
 		harpoon.ui:toggle_quick_menu(harpoon:list())
     end)
