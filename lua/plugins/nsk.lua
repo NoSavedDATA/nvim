@@ -1,1 +1,0 @@
-return { 'NosavedDATA/vim-nsk' }

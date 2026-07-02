@@ -6,12 +6,12 @@ return {
 				  local buf = vim.api.nvim_get_current_buf()
 				  local line = vim.fn.line('.')
 
-				  local height = math.floor(vim.o.lines * 0.5)
+				  local height = math.floor(vim.o.lines * 0.8)
 				  local width = vim.o.columns
 
 				  local win = vim.api.nvim_open_win(buf, true, {
 					relative = "editor",
-					row = vim.o.lines - height - 2,
+					row = 8,
 					col = 0,
 					width = width,
 					height = height,
@@ -42,12 +42,13 @@ return {
 					target = current
 				  end
 
-				  local height = math.floor(vim.o.lines * 0.5)
+				  local height = math.floor(vim.o.lines * 0.8)
 				  local width = vim.o.columns
 
 				  float_win = vim.api.nvim_open_win(target, true, {
 					relative = "editor",
-					row = vim.o.lines - height - 2,
+					-- row = vim.o.lines - height - 2,
+					row = 8,
 					col = 0,
 					width = width,
 					height = height,

@@ -8,7 +8,7 @@ vim.o.autoindent = true
 grp = vim.api.nvim_create_augroup("c_like_indent", { clear = true })
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
     group = grp,
-    pattern = {"*.c", "*.h", "*.cpp", "*.cu", ".cuh"},
+    pattern = {"*.c", "*.h", "*.cpp", "*.cu", ".cuh", "*.asm"},
     callback = function()
         vim.bo.cindent = true	
 		vim.bo.shiftwidth = 4
@@ -44,9 +44,22 @@ map("n", "<C-;>", "gcc", { remap = true })
 map("v", "<C-;>", "gc", { remap = true })
 map('n', '<Delete>', '"_dd')
 map('n', 'x', '"_x')
+map('n', 'n', 'nzz')
+map('n', 'N', 'Nzz')
 
+map('n', '<C-u>', '<C-u>zz')
+map('n', '<C-d>', '<C-d>zz')
 
-
+vim.keymap.set({'n', 'v', 'i'}, '<S-Left>', '<Nop>')
+vim.keymap.set({'n', 'v', 'i'}, '<S-Right>', '<Nop>')
+vim.keymap.set({'n', 'v', 'i'}, '<S-Up>', '<Nop>')
+vim.keymap.set({'n', 'v', 'i'}, '<S-Down>', '<Nop>')
+vim.keymap.set('v', 'u', '<Nop>')
+vim.keymap.set('v', 'U', '<Nop>')
+vim.keymap.set('v', '~', '<Nop>')
+vim.keymap.set('n', 'gu', '<Nop>')
+vim.keymap.set('n', 'gU', '<Nop>')
+vim.keymap.set('n', '~', '<Nop>')
 
 -- Insert mode: auto braces
 vim.cmd [[inoremap { {<CR>}<up><end><CR>]]

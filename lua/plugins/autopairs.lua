@@ -1,14 +1,17 @@
 return {
-  "jiangmiao/auto-pairs",
-  init = function()
-    -- disable aggressive mappings
-    vim.g.AutoPairsMapCh = 0
-    vim.g.AutoPairsMapBS = 0
-    vim.g.AutoPairsMapCR = 0
-    vim.g.AutoPairsShortcutJump = ""
+  "windwp/nvim-autopairs",
+  event = "InsertEnter",
+  config = function()
+    local npairs = require("nvim-autopairs")
+    npairs.setup({})
 
-    -- IMPORTANT: do NOT let auto-pairs interfere with paste
-    vim.g.AutoPairsFlyMode = 0
-    vim.g.AutoPairsShortcutToggle = ""
+    local cmp = require("cmp")
+    local cmp_autopairs =
+      require("nvim-autopairs.completion.cmp")
+
+    cmp.event:on(
+      "confirm_done",
+      cmp_autopairs.on_confirm_done()
+    )
   end,
 }
